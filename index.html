@@ -223,10 +223,17 @@
   }
   .project-card:hover{transform:translateY(-5px); box-shadow:0 18px 34px rgba(16,36,31,0.14); border-color:var(--teal);}
   .project-shot{
+    width:100%;
     aspect-ratio:16/9; background:repeating-linear-gradient(135deg, var(--paper-alt), var(--paper-alt) 10px, var(--paper) 10px, var(--paper) 20px);
-    border-bottom:1px dashed var(--line); display:flex; align-items:center; justify-content:center;
-    font-family:var(--font-mono); font-size:11.5px; color:var(--text-muted); text-align:center; padding:12px;
+    border-bottom:1px dashed var(--line); display:flex; align-items:center; justify-content:center; overflow:hidden; 
+    font-family:var(--font-mono); font-size:11.5px; color:var(--text-muted); text-align:center; padding:0;
   }
+  .project-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;         /* fills the card nicely */
+  display:block;
+}
   .project-body{padding:26px; flex:1; display:flex; flex-direction:column;}
   .project-body h3{font-size:19px; margin-bottom:10px;}
   .project-tag{font-family:var(--font-mono); font-size:11px; color:var(--teal-dark); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:10px;}
@@ -300,6 +307,23 @@
   .contact-list li a:hover{color:var(--teal-dark);}
 
   footer{padding:36px 0; text-align:center; font-family:var(--font-mono); font-size:12px; color:var(--text-muted);}
+
+  /* DOWNLOAD TOAST */
+  .toast{
+    position:fixed; left:50%; bottom:32px; transform:translateX(-50%) translateY(20px);
+    background:var(--ink-dark); color:var(--text-on-dark); font-family:var(--font-mono); font-size:13.5px;
+    padding:14px 20px; border-radius:8px; border:1px solid var(--line-dark);
+    display:flex; align-items:center; gap:12px; z-index:200;
+    box-shadow:0 16px 36px rgba(16,36,31,0.35);
+    opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0); pointer-events:auto;}
+  .toast .toast-icon{
+    width:20px; height:20px; border-radius:50%; background:var(--teal);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .toast .toast-icon svg{width:12px; height:12px; stroke:var(--ink-dark);}
+  .toast .toast-text strong{color:var(--teal); font-weight:600;}
 
   @media(max-width:860px){
     .hero .wrap{grid-template-columns:1fr;}
@@ -416,10 +440,13 @@
     </div>
     <div class="about-grid">
       <div class="reveal">
-        <p>I'm <strong>Anushraya Das</strong>, an Associate Data Scientist at Involead with over a year turning messy healthcare data into decisions pharma teams can act on. My work sits at the intersection of SQL, machine learning, and business impact — cleaning and structuring HCP (Healthcare Professional) datasets, building segmentation models that group prescribers by behavior and value, and forecasting engagement so commercial teams know where to focus next.</p>
-        <p>I trained at ITER and built my practical edge on <strong>Unified</strong>, an end-to-end pharma analytics platform I built from the ground up — dataset research, data generation, SQL-based analysis, a segmentation pipeline, and forecasting and AI-analytics components layered on top. That project taught me to think like both a data scientist and a business stakeholder: every model has to answer "so what should we do differently now?"</p>
-        <p>I'm looking for my next Data Scientist / ML Engineer role across <strong>Hyderabad, Bengaluru, Pune, or Bhubaneswar</strong>, bringing that same rigor to a team that needs someone who ships, not just experiments.</p>
+        <p>I’m <strong>Anushraya Das</strong>, an Associate Data Scientist at Involead with over a year of experience working on AI-driven analytics and machine learning solutions. I completed my studies at <strong>ITER</strong>, where I built a strong foundation in data science, statistics, and programming.</p>
+        <p>At Involead, I have been working on <strong>Unified</strong>, an enterprise analytics platform focused on segmentation, classification, forecasting, and AI-assisted analytics workflows. My responsibilities included dataset research and preparation, SQL-based data analysis, feature engineering, clustering and classification pipelines, API development with FastAPI, and AI-powered insight generation.</p>
+        <p>One of my key contributions was the development of an <strong>AI-powered segmentation platform</strong> where users can upload datasets, receive automated data health analysis, get AI-recommended features and clustering methods, generate segment profiles, and interact with the results through an Ask AI conversational interface. I also contributed to the classification module used for anomaly detection, segment maintenance, and assigning new data points to existing segments.</p>
+        <p>My work combines <strong>SQL, Python, machine learning, FastAPI, and LLM-based analytics</strong> with a strong focus on building practical solutions that help business teams make faster and more informed decisions.</p>
+        <p>I’m now looking for my next <strong>Data Scientist / ML Engineer</strong> opportunity in <strong>Hyderabad, Bengaluru, Pune, or Bhubaneswar</strong>, where I can contribute to building scalable AI and data products that create measurable business impact.</p>
       </div>
+
       <div class="fact-card reveal">
         <div class="fact-row"><span>Role</span><span>Associate Data Scientist, Involead</span></div>
         <div class="fact-row"><span>Experience</span><span>1+ year</span></div>
@@ -532,84 +559,46 @@
     <div class="project-grid">
 
       <div class="project-card reveal">
-        <div class="project-shot">Suggested screenshot: Unified pipeline architecture diagram or segment dashboard</div>
+        <div class="project-shot"><img src="unified.png"
+         alt="Unified AI Platform"
+         class="project-img"></div>
         <div class="project-body">
           <div class="project-tag">Flagship Project</div>
-          <h3>Unified — HCP Segmentation Platform</h3>
+          <h3>Unified AI Platform</h3>
           <dl>
-            <dt>Problem</dt><dd>Pharma commercial teams lacked a single, reliable view of HCP behavior to prioritize engagement.</dd>
-            <dt>Dataset</dt><dd>Researched and generated a synthetic-realistic HCP engagement dataset (prescribing patterns, interaction history, specialty, region).</dd>
-            <dt>Approach</dt><dd>End-to-end pipeline: SQL-based cleaning and joins → feature engineering → clustering → forecasting → AI-analytics layer.</dd>
-            <dt>Algorithms</dt><dd>K-Means / hierarchical clustering for segmentation; regression-based models for forecasting.</dd>
-            <dt>SQL work</dt><dd>Multi-table joins, window functions, and aggregation queries to build the analysis-ready HCP feature table.</dd>
-            <dt>Results</dt><dd>Produced [X] distinct HCP segments with clear behavioral profiles and a forecast layer for engagement trends.</dd>
-            <dt>Business impact</dt><dd>Gives commercial teams a prioritized, data-backed engagement plan instead of a one-size-fits-all outreach strategy.</dd>
+            <dt>Problem</dt><dd>Getting an answer from company data meant writing SQL, knowing the schema, or waiting on an analyst — even for simple questions.</dd>
+            <dt>Input</dt><dd>Natural language questions typed into a chatbot, answered directly against a live, schema-aware database — Pharma based dataset.</dd>
+            <dt>Architecture</dt><dd>Intent-routing pipeline: a schema-aware LLM call classifies each query (SQL, dashboard, segmentation, or forecasting) and scopes it to only the relevant tables/columns before anything runs.</dd>
+            <dt>Workflows</dt><dd>SQL path generates and executes the query, then converts raw results into a plain-language answer. Dashboard path uses a Planner LLM to output a JSON layout, turned into chart data and an HTML template in parallel, then merged into an interactive dashboard.</dd>
+            <dt>Backend & AI</dt><dd>Multi-step LLM orchestration with structured JSON outputs at every decision point, schema-grounded prompting to cut hallucinated tables/columns, and a modular router so segmentation and forecasting plug into the same core.</dd>
+            <dt>Results</dt><dd>One chatbot that answers direct questions in plain English and auto-builds full interactive dashboards for exploratory questions — from the same query box.</dd>
+            <dt>Business impact</dt><dd>Removes the SQL/BI bottleneck between business users and their own data — turns "ask an analyst" into "ask the platform," without sacrificing accuracy.</dd>
           </dl>
           <div class="tech-row">
-            <span class="tech-chip">Python</span><span class="tech-chip">SQL</span><span class="tech-chip">Pandas</span><span class="tech-chip">Scikit-learn</span>
+            <span class="tech-chip">Python</span><span class="tech-chip">LLM Orchestration</span><span class="tech-chip">SQL</span><span class="tech-chip">Prompt Engineering</span><span class="tech-chip">JSON-driven Codegen</span>
           </div>
           <a href="#" class="gh-btn">View on GitHub →</a>
         </div>
       </div>
 
       <div class="project-card reveal">
-        <div class="project-shot">Suggested screenshot: forecast line chart vs actuals</div>
+        <div class="project-shot"><img src="segmentation.png"
+         alt="Segmentation AI Platform Dashboard"
+         class="project-img"></div>
         <div class="project-body">
-          <div class="project-tag">Forecasting</div>
-          <h3>Pharma Sales Forecasting</h3>
+          <div class="project-tag">AI Product · Backend</div>
+          <h3>Segmentation AI Platform</h3>
           <dl>
-            <dt>Problem</dt><dd>Commercial planning needed forward-looking demand estimates, not just historical reporting.</dd>
-            <dt>Dataset</dt><dd>Time-series sales / prescription volume data by region and product line.</dd>
-            <dt>Approach</dt><dd>Trend and seasonality decomposition, followed by supervised forecasting models with rolling validation.</dd>
-            <dt>Algorithms</dt><dd>Regression-based forecasting (e.g. linear/ensemble models), with baseline comparisons against naive and moving-average forecasts.</dd>
-            <dt>SQL work</dt><dd>Aggregated raw transactional data into clean monthly/regional time series ready for modeling.</dd>
-            <dt>Results</dt><dd>Forecast accuracy improved over baseline by [X]%, measured via MAPE / RMSE.</dd>
-            <dt>Business impact</dt><dd>Enables proactive inventory and territory planning instead of reactive adjustments.</dd>
+            <dt>Problem</dt><dd>Business users needed to run advanced segmentation on their own data without writing code or waiting on a data science team.</dd>
+            <dt>Dataset</dt><dd>Any user-uploaded structured dataset (CSV/Excel) — not domain-specific, validated on upload with an automated schema check.</dd>
+            <dt>Approach</dt><dd>End-to-end no-code pipeline: AI data-health report → AI feature recommendations → custom feature engineering → AI algorithm recommendation → clustering → auto-labeled profiling (High/Moderate/Low) → AI-generated insights. Migrated from a Streamlit prototype to a production FastAPI backend with a Figma-designed UI.</dd>
+            <dt>Algorithms</dt><dd>K-Means, DBSCAN, and Gaussian Mixture Models, auto-ranked by silhouette, Davies–Bouldin, and Calinski–Harabasz scores, with the best fit highlighted for the user.</dd>
+            <dt>Backend & data</dt><dd>Built the FastAPI APIs for upload, preprocessing, clustering, and profiling; used PostgreSQL for run/segment storage and Qdrant + RAG to power a natural-language "Ask AI" chatbot over saved segmentation results.</dd>
+            <dt>Results</dt><dd>Shipped a working self-serve platform: upload a dataset, get an AI-recommended algorithm and cluster count, interpretable segment profiles, and a chatbot that answers questions like "which segment has the highest spend?" in plain language.</dd>
+            <dt>Business impact</dt><dd>Let non-technical users self-serve advanced segmentation, cut manual data-prep effort, and made results interpretable without statistical expertise — accelerating customer/member segmentation workflows.</dd>
           </dl>
           <div class="tech-row">
-            <span class="tech-chip">Python</span><span class="tech-chip">Pandas</span><span class="tech-chip">Scikit-learn</span><span class="tech-chip">Matplotlib</span>
-          </div>
-          <a href="#" class="gh-btn">View on GitHub →</a>
-        </div>
-      </div>
-
-      <div class="project-card reveal">
-        <div class="project-shot">Suggested screenshot: cluster scatter plot with labeled segments</div>
-        <div class="project-body">
-          <div class="project-tag">Clustering</div>
-          <h3>HCP Segmentation using Clustering</h3>
-          <dl>
-            <dt>Problem</dt><dd>Not all HCPs deserve the same engagement strategy — the business needed behavioral groupings.</dd>
-            <dt>Dataset</dt><dd>HCP-level features: prescribing volume, specialty, interaction frequency, engagement channel.</dd>
-            <dt>Approach</dt><dd>Standardized features, tested cluster counts via elbow method and silhouette score, then profiled each segment.</dd>
-            <dt>Algorithms</dt><dd>K-Means clustering, with hierarchical clustering as a validation cross-check.</dd>
-            <dt>SQL work</dt><dd>Built the feature base table with joins across prescribing and interaction data sources.</dd>
-            <dt>Results</dt><dd>Identified [X] clear, actionable HCP segments (e.g. high-value, growth-potential, low-engagement).</dd>
-            <dt>Business impact</dt><dd>Turns a flat HCP list into a prioritized, segment-specific engagement roadmap.</dd>
-          </dl>
-          <div class="tech-row">
-            <span class="tech-chip">Python</span><span class="tech-chip">Scikit-learn</span><span class="tech-chip">Seaborn</span>
-          </div>
-          <a href="#" class="gh-btn">View on GitHub →</a>
-        </div>
-      </div>
-
-      <div class="project-card reveal">
-        <div class="project-shot">Suggested screenshot: dashboard mockup or query results table</div>
-        <div class="project-body">
-          <div class="project-tag">SQL / Analytics</div>
-          <h3>End-to-End SQL Analytics Dashboard</h3>
-          <dl>
-            <dt>Problem</dt><dd>Stakeholders needed self-serve visibility into engagement metrics without waiting on ad hoc queries.</dd>
-            <dt>Dataset</dt><dd>Combined engagement, transaction, and HCP master data across multiple tables.</dd>
-            <dt>Approach</dt><dd>Modeled a clean analytical schema, wrote reusable SQL views, and connected them to a BI dashboard layer.</dd>
-            <dt>Algorithms</dt><dd>Not model-driven — focus on data modeling, aggregation, and metric definition.</dd>
-            <dt>SQL work</dt><dd>Window functions, CTEs, and indexed views to keep dashboard queries fast and accurate.</dd>
-            <dt>Results</dt><dd>Cut time-to-answer for common stakeholder questions from days to minutes.</dd>
-            <dt>Business impact</dt><dd>Reduced analyst workload and gave managers a live, trustworthy view of engagement KPIs.</dd>
-          </dl>
-          <div class="tech-row">
-            <span class="tech-chip">SQL</span><span class="tech-chip">Power BI</span><span class="tech-chip">Python</span>
+            <span class="tech-chip">Python</span><span class="tech-chip">FastAPI</span><span class="tech-chip">Scikit-learn</span><span class="tech-chip">PostgreSQL</span><span class="tech-chip">Qdrant</span><span class="tech-chip">LLMs / RAG</span>
           </div>
           <a href="#" class="gh-btn">View on GitHub →</a>
         </div>
@@ -724,7 +713,7 @@
   <div class="wrap">
     <h2 class="reveal">Want the full picture?</h2>
     <p class="reveal">Download my resume for the complete breakdown of my experience, skills, and project impact.</p>
-    <a href="#" class="btn btn-primary reveal">Download Resume (PDF)</a>
+    <a href="resume.pdf" download="Anushraya_Das_Resume.pdf" class="btn btn-primary reveal resume-download-btn">Download Resume (PDF)</a>
   </div>
 </section>
 
@@ -735,7 +724,7 @@
       <div class="reveal">
         <div class="eyebrow">Contact</div>
         <h2>Let's talk about the role.</h2>
-        <p>I'm actively interviewing for Data Scientist, ML Engineer, and Analytics Engineer roles in Hyderabad, Bengaluru, Pune, and Bhubaneswar. If my segmentation and forecasting work is relevant to your team, I'd welcome a conversation.</p>
+        <p>I'm actively looking for Data Scientist, ML Engineer, and Analytics Engineer roles in Hyderabad, Bengaluru, Pune, and Bhubaneswar. If my segmentation and forecasting work is relevant to your team, I'd welcome a conversation.</p>
       </div>
       <ul class="contact-list reveal">
         <li><span>Email</span><a href="mailto:anushrayadas@gmail.com">anushrayadas@gmail.com</a></li>
@@ -748,6 +737,13 @@
 </section>
 
 <footer>© <span id="year"></span> Anushraya Das. Built with data, shipped like a product.</footer>
+
+<div class="toast" id="downloadToast">
+  <span class="toast-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+  </span>
+  <span class="toast-text" id="toastText"><strong>Downloading</strong> — Anushraya_Das_Resume.pdf</span>
+</div>
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
@@ -785,6 +781,19 @@
     });
   }, { threshold: 0.12 });
   revealEls.forEach(el => revealObserver.observe(el));
+
+  // Resume download toast
+  const toast = document.getElementById('downloadToast');
+  const toastText = document.getElementById('toastText');
+  let toastTimer;
+  document.querySelectorAll('.resume-download-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      toastText.innerHTML = '<strong>Downloading</strong> — Anushraya_Das_Resume.pdf';
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 3200);
+    });
+  });
 
   // Animated stat counters
   const statEls = document.querySelectorAll('.stat .num');
