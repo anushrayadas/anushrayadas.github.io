@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anshraya Das — Data Scientist | HCP Segmentation & Forecasting | GURUGRAM</title>
-<meta name="description" content="Anshraya Das is a Data Scientist / ML Engineer with 1+ years building SQL, segmentation, and forecasting pipelines for pharma HCP engagement analytics. Open to roles in Hyderabad, Banglore, Pune, Bhubaneswar.">
+<title>Anushraya Das — Data Scientist | HCP Segmentation & Forecasting | Gurugram</title>
+<meta name="description" content="Anushraya Das is a Data Scientist / ML Engineer with 1+ years building SQL, segmentation, and forecasting pipelines for pharma HCP engagement analytics. Open to roles in Hyderabad, Bengaluru, Pune, and Bhubaneswar.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -55,6 +55,13 @@
   .section-head{max-width:640px; margin-bottom:52px;}
   .section-head p{color:var(--text-muted); font-size:16.5px;}
 
+  /* SCROLL PROGRESS */
+  .scroll-progress{
+    position:fixed; top:0; left:0; height:3px; width:0%;
+    background:linear-gradient(90deg, var(--teal), var(--amber));
+    z-index:100; transition:width .08s linear;
+  }
+
   /* NAV */
   header.site-nav{
     position:sticky; top:0; z-index:50;
@@ -70,16 +77,32 @@
     font-family:var(--font-mono); font-weight:600; font-size:14px;
     letter-spacing:0.02em; display:flex; align-items:center; gap:8px;
   }
-  .nav-mark .dot{width:8px; height:8px; border-radius:50%; background:var(--teal); display:inline-block;}
+  .nav-mark .dot{width:8px; height:8px; border-radius:50%; background:var(--teal); display:inline-block; animation:pulseDot 2.2s ease-in-out infinite;}
+  @keyframes pulseDot{0%,100%{box-shadow:0 0 0 0 rgba(47,158,143,0.5);} 50%{box-shadow:0 0 0 6px rgba(47,158,143,0);}}
   nav.nav-links{display:flex; gap:28px; font-size:14px; font-weight:500;}
-  nav.nav-links a{opacity:0.75; transition:opacity .15s;}
+  nav.nav-links a{opacity:0.75; transition:opacity .15s; position:relative;}
+  nav.nav-links a::after{
+    content:''; position:absolute; left:0; bottom:-4px; width:0; height:1px; background:var(--teal-dark);
+    transition:width .2s ease;
+  }
   nav.nav-links a:hover{opacity:1; color:var(--teal-dark);}
+  nav.nav-links a:hover::after{width:100%;}
   .nav-cta{
     font-family:var(--font-mono); font-size:13px; font-weight:500;
     padding:9px 16px; border:1px solid var(--ink); border-radius:3px;
-    white-space:nowrap;
+    white-space:nowrap; transition:background .15s ease, color .15s ease;
   }
-  .nav-toggle{display:none; background:none; border:none; font-size:22px; cursor:pointer;}
+  .nav-cta:hover{background:var(--ink); color:var(--paper);}
+  .nav-toggle{
+    display:none; background:none; border:1px solid var(--line); border-radius:4px; padding:8px 10px;
+    font-size:16px; cursor:pointer; font-family:var(--font-mono);
+  }
+  .mobile-menu{
+    display:none; flex-direction:column; gap:2px; background:var(--paper);
+    border-bottom:1px solid var(--line); overflow:hidden; max-height:0; transition:max-height .25s ease;
+  }
+  .mobile-menu.open{max-height:400px;}
+  .mobile-menu a{padding:14px 28px; font-size:14.5px; border-top:1px solid var(--line);}
 
   /* HERO */
   .hero{
@@ -89,6 +112,13 @@
   .hero .wrap{
     display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:center;
   }
+  .status-pill{
+    display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:11.5px;
+    color:var(--amber); border:1px solid rgba(232,163,61,0.35); background:rgba(232,163,61,0.08);
+    padding:6px 12px; border-radius:20px; margin-bottom:22px; letter-spacing:0.03em;
+  }
+  .status-pill .live-dot{width:7px; height:7px; border-radius:50%; background:var(--amber); animation:pulseDot2 1.6s ease-in-out infinite;}
+  @keyframes pulseDot2{0%,100%{opacity:1;} 50%{opacity:0.3;}}
   .hero .eyebrow{color:var(--amber);}
   .hero .eyebrow::before{background:var(--amber);}
   .hero h1{
@@ -100,11 +130,13 @@
   .btn{
     font-family:var(--font-mono); font-size:13.5px; font-weight:500;
     padding:13px 22px; border-radius:3px; cursor:pointer; display:inline-flex; align-items:center; gap:8px;
-    transition:transform .15s ease, background .15s ease;
+    transition:transform .15s ease, background .15s ease, box-shadow .15s ease;
   }
   .btn:hover{transform:translateY(-2px);}
   .btn-primary{background:var(--teal); color:var(--ink-dark); border:1px solid var(--teal);}
+  .btn-primary:hover{box-shadow:0 8px 20px rgba(47,158,143,0.35);}
   .btn-secondary{background:transparent; color:var(--text-on-dark); border:1px solid var(--line-dark);}
+  .btn-secondary:hover{border-color:var(--teal);}
   .hero-meta{
     margin-top:44px; display:flex; gap:32px; font-family:var(--font-mono); font-size:12.5px;
     color:rgba(237,238,231,0.55); flex-wrap:wrap;
@@ -124,6 +156,19 @@
   @keyframes settleB{0%,100%{transform:translate(0,0);}50%{transform:translate(-3px,2px);}}
   @keyframes settleC{0%,100%{transform:translate(0,0);}50%{transform:translate(2px,3px);}}
 
+  /* IMPACT STATS STRIP */
+  .stats-strip{background:var(--paper-alt); border-bottom:1px solid var(--line);}
+  .stats-strip .wrap{
+    display:grid; grid-template-columns:repeat(4,1fr); padding:40px 28px; gap:24px;
+  }
+  .stat{text-align:left; border-left:2px solid var(--teal); padding-left:16px;}
+  .stat .num{font-family:var(--font-display); font-size:34px; font-weight:600; color:var(--ink);}
+  .stat .label{font-family:var(--font-mono); font-size:11.5px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; margin-top:4px;}
+
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+
   /* ABOUT */
   .about-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:56px; align-items:start;}
   .about-grid p{font-size:17px; color:var(--ink); margin-bottom:16px;}
@@ -131,21 +176,27 @@
   .fact-card{
     background:var(--paper-alt); border:1px solid var(--line); border-radius:6px; padding:24px;
   }
-  .fact-row{display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--line); font-size:14px;}
+  .fact-row{display:flex; justify-content:space-between; gap:16px; padding:12px 0; border-bottom:1px solid var(--line); font-size:14px;}
   .fact-row:last-child{border-bottom:none;}
-  .fact-row span:first-child{color:var(--text-muted); font-family:var(--font-mono); font-size:12.5px;}
-  .fact-row span:last-child{font-weight:600;}
+  .fact-row span:first-child{color:var(--text-muted); font-family:var(--font-mono); font-size:12.5px; white-space:nowrap;}
+  .fact-row span:last-child{font-weight:600; text-align:right;}
 
   /* SKILLS */
   .skills-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
-  .skill-card{background:var(--ink-dark); color:var(--text-on-dark); border-radius:8px; padding:26px;}
+  .skill-card{
+    background:var(--ink-dark); color:var(--text-on-dark); border-radius:8px; padding:26px;
+    transition:transform .2s ease, box-shadow .2s ease; border:1px solid transparent;
+  }
+  .skill-card:hover{transform:translateY(-4px); box-shadow:0 14px 28px rgba(16,36,31,0.18); border-color:var(--teal);}
   .skill-card .icon{width:30px; height:30px; margin-bottom:16px; color:var(--teal);}
   .skill-card h4{font-family:var(--font-body); font-weight:600; font-size:14px; letter-spacing:0.02em; text-transform:uppercase; margin-bottom:14px; color:rgba(237,238,231,0.7);}
   .badge-row{display:flex; flex-wrap:wrap; gap:8px;}
   .badge{
     font-family:var(--font-mono); font-size:12px; padding:6px 10px; border-radius:20px;
     border:1px solid var(--line-dark); color:var(--text-on-dark); background:rgba(255,255,255,0.03);
+    transition:background .15s ease, border-color .15s ease;
   }
+  .badge:hover{background:rgba(47,158,143,0.18); border-color:var(--teal);}
 
   /* EXPERIENCE */
   .exp-card{
@@ -158,15 +209,19 @@
   ul.exp-list{list-style:none;}
   ul.exp-list li{
     display:flex; gap:14px; padding:12px 0; border-top:1px solid var(--line); font-size:15.5px;
+    transition:padding-left .15s ease;
   }
   ul.exp-list li:first-child{border-top:none;}
   ul.exp-list li::before{content:'—'; color:var(--teal); flex-shrink:0; font-weight:600;}
+  ul.exp-list li:hover{padding-left:6px;}
 
   /* PROJECTS */
   .project-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
   .project-card{
     background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden; display:flex; flex-direction:column;
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
   }
+  .project-card:hover{transform:translateY(-5px); box-shadow:0 18px 34px rgba(16,36,31,0.14); border-color:var(--teal);}
   .project-shot{
     aspect-ratio:16/9; background:repeating-linear-gradient(135deg, var(--paper-alt), var(--paper-alt) 10px, var(--paper) 10px, var(--paper) 20px);
     border-bottom:1px dashed var(--line); display:flex; align-items:center; justify-content:center;
@@ -184,7 +239,9 @@
   .gh-btn{
     margin-top:auto; font-family:var(--font-mono); font-size:12.5px; font-weight:500;
     padding:10px 16px; border:1px solid var(--ink); border-radius:3px; text-align:center; align-self:flex-start;
+    transition:background .15s ease, color .15s ease;
   }
+  .gh-btn:hover{background:var(--ink); color:var(--paper);}
 
   /* CASE STUDY */
   .case-study{background:var(--ink-dark); color:var(--text-on-dark);}
@@ -195,7 +252,8 @@
     color:rgba(237,238,231,0.92);
   }
   .cs-steps{display:grid; grid-template-columns:repeat(2,1fr); gap:2px; background:var(--line-dark); border:1px solid var(--line-dark); border-radius:8px; overflow:hidden;}
-  .cs-step{background:var(--ink-dark); padding:26px;}
+  .cs-step{background:var(--ink-dark); padding:26px; transition:background .2s ease;}
+  .cs-step:hover{background:#152e28;}
   .cs-step .num{font-family:var(--font-mono); font-size:12px; color:var(--teal); margin-bottom:10px;}
   .cs-step h4{font-family:var(--font-body); font-weight:600; font-size:15.5px; margin-bottom:8px;}
   .cs-step p{font-size:14px; color:rgba(237,238,231,0.65);}
@@ -210,7 +268,9 @@
   .cert-row{
     display:grid; grid-template-columns:32px 1fr auto; gap:18px; align-items:center;
     padding:18px 22px; background:var(--paper-alt); border:1px solid var(--line); border-radius:6px;
+    transition:border-color .15s ease, transform .15s ease;
   }
+  .cert-row:hover{border-color:var(--teal); transform:translateX(4px);}
   .cert-row .rank{font-family:var(--font-mono); font-size:14px; color:var(--teal-dark); font-weight:600;}
   .cert-row h4{font-size:15.5px; font-weight:600; font-family:var(--font-body);}
   .cert-row p{font-size:13.5px; color:var(--text-muted); margin-top:3px;}
@@ -219,34 +279,43 @@
   /* RESUME + CONTACT */
   .resume-band{
     background:var(--teal); color:var(--ink-dark); text-align:center; padding:80px 0;
+    position:relative; overflow:hidden;
   }
   .resume-band h2{color:var(--ink-dark); margin-bottom:12px;}
   .resume-band p{max-width:480px; margin:0 auto 30px; font-size:16px; opacity:0.85;}
   .resume-band .btn-primary{background:var(--ink-dark); color:var(--paper); border-color:var(--ink-dark);}
+  .resume-band .btn-primary:hover{box-shadow:0 10px 24px rgba(16,36,31,0.35);}
 
   .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
   .contact-grid p{font-size:16.5px; color:var(--text-muted); max-width:420px;}
   .contact-list{list-style:none; margin-top:26px;}
   .contact-list li{
-    display:flex; justify-content:space-between; padding:16px 0; border-top:1px solid var(--line); font-size:15px;
+    display:flex; justify-content:space-between; gap:16px; padding:16px 0; border-top:1px solid var(--line); font-size:15px;
+    transition:padding-left .15s ease;
   }
   .contact-list li:first-child{border-top:none;}
-  .contact-list li span:first-child{font-family:var(--font-mono); font-size:12px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em;}
-  .contact-list li a, .contact-list li span:last-child{font-weight:500;}
+  .contact-list li:hover{padding-left:4px;}
+  .contact-list li span:first-child{font-family:var(--font-mono); font-size:12px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em; white-space:nowrap;}
+  .contact-list li a, .contact-list li span:last-child{font-weight:500; text-align:right;}
+  .contact-list li a:hover{color:var(--teal-dark);}
 
   footer{padding:36px 0; text-align:center; font-family:var(--font-mono); font-size:12px; color:var(--text-muted);}
 
   @media(max-width:860px){
     .hero .wrap{grid-template-columns:1fr;}
     .about-grid,.project-grid,.skills-grid,.cs-steps,.cs-outcomes,.contact-grid{grid-template-columns:1fr;}
+    .stats-strip .wrap{grid-template-columns:repeat(2,1fr);}
     nav.nav-links{display:none;}
     .nav-toggle{display:block;}
+    .mobile-menu{display:flex;}
     section{padding:64px 0;}
     .cluster-viz{margin-top:32px;}
   }
 </style>
 </head>
 <body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
 
 <header class="site-nav">
   <div class="nav-inner">
@@ -260,7 +329,18 @@
       <a href="#certifications">Certifications</a>
       <a href="#contact">Contact</a>
     </nav>
-    <a href="#resume" class="nav-cta">Resume ↓</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰ Menu</button>
+    <a href="#resume" class="nav-cta" style="display:none" id="navCtaDesktop">Resume ↓</a>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#case-study">Case Study</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#resume">Resume</a>
+    <a href="#contact">Contact</a>
   </div>
 </header>
 
@@ -268,17 +348,18 @@
 <section class="hero" id="home">
   <div class="wrap">
     <div>
-      <div class="eyebrow">Associate Data Scientist · Involead · GURUGRAM</div>
+      <div class="status-pill"><span class="live-dot"></span>Actively interviewing · open to relocation</div>
+      <div class="eyebrow">Associate Data Scientist · Involead · Gurugram</div>
       <h1>From scattered HCP data to <em>segments</em> pharma teams act on.</h1>
       <p class="value-prop">I build SQL-backed segmentation and forecasting pipelines that turn raw healthcare-professional data into engagement decisions — 1+ year doing this in production at Involead.</p>
       <div class="hero-ctas">
         <a href="#case-study" class="btn btn-primary">See the Unified Case Study</a>
-        <a href="#resume" class="btn btn-secondary">Download Résumé</a>
+        <a href="#resume" class="btn btn-secondary">Download Resume</a>
       </div>
       <div class="hero-meta">
         <div><strong>Python · SQL · Scikit-learn</strong><br>core stack</div>
         <div><strong>Pharma / HCP analytics</strong><br>domain</div>
-        <div><strong>Hyderabad, Banglore, Pune, Bhubaneswar</strong><br>target location</div>
+        <div><strong>Hyderabad · Bengaluru · Pune · Bhubaneswar</strong><br>target locations</div>
       </div>
     </div>
     <div>
@@ -316,26 +397,36 @@
   </div>
 </section>
 
+<!-- IMPACT STATS -->
+<div class="stats-strip">
+  <div class="wrap">
+    <div class="stat"><div class="num" data-count="1">0</div><div class="label">Year in production</div></div>
+    <div class="stat"><div class="num" data-count="4">0</div><div class="label">End-to-end projects</div></div>
+    <div class="stat"><div class="num" data-count="6">0</div><div class="label">Pipeline stages, Unified</div></div>
+    <div class="stat"><div class="num" data-count="4">0</div><div class="label">Target cities, open now</div></div>
+  </div>
+</div>
+
 <!-- ABOUT -->
 <section id="about">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">About</div>
       <h2>A data scientist who ships to production, not just notebooks.</h2>
     </div>
     <div class="about-grid">
-      <div>
-        <p>I'm <strong>Anshraya Das</strong>, an Associate Data Scientist at Involead with over a year turning messy healthcare data into decisions pharma teams can act on. My work sits at the intersection of SQL, machine learning, and business impact — cleaning and structuring HCP (Healthcare Professional) datasets, building segmentation models that group prescribers by behavior and value, and forecasting engagement so commercial teams know where to focus next.</p>
+      <div class="reveal">
+        <p>I'm <strong>Anushraya Das</strong>, an Associate Data Scientist at Involead with over a year turning messy healthcare data into decisions pharma teams can act on. My work sits at the intersection of SQL, machine learning, and business impact — cleaning and structuring HCP (Healthcare Professional) datasets, building segmentation models that group prescribers by behavior and value, and forecasting engagement so commercial teams know where to focus next.</p>
         <p>I trained at ITER and built my practical edge on <strong>Unified</strong>, an end-to-end pharma analytics platform I built from the ground up — dataset research, data generation, SQL-based analysis, a segmentation pipeline, and forecasting and AI-analytics components layered on top. That project taught me to think like both a data scientist and a business stakeholder: every model has to answer "so what should we do differently now?"</p>
-        <p>I'm looking for my next Data Scientist / ML Engineer role in <strong>Hyderabad</strong>, bringing that same rigor to a team that needs someone who ships, not just experiments.</p>
+        <p>I'm looking for my next Data Scientist / ML Engineer role across <strong>Hyderabad, Bengaluru, Pune, or Bhubaneswar</strong>, bringing that same rigor to a team that needs someone who ships, not just experiments.</p>
       </div>
-      <div class="fact-card">
+      <div class="fact-card reveal">
         <div class="fact-row"><span>Role</span><span>Associate Data Scientist, Involead</span></div>
         <div class="fact-row"><span>Experience</span><span>1+ year</span></div>
         <div class="fact-row"><span>Education</span><span>ITER</span></div>
         <div class="fact-row"><span>Domain</span><span>Pharma / HCP analytics</span></div>
         <div class="fact-row"><span>Core stack</span><span>Python · SQL · Scikit-learn</span></div>
-        <div class="fact-row"><span>Target location</span><span>Hyderabad</span></div>
+        <div class="fact-row"><span>Target locations</span><span>Hyderabad, Bengaluru, Pune, Bhubaneswar</span></div>
         <div class="fact-row"><span>Target CTC</span><span>₹8–10 LPA</span></div>
       </div>
     </div>
@@ -345,13 +436,13 @@
 <!-- SKILLS -->
 <section id="skills">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">Skills</div>
       <h2>The toolkit behind every project below.</h2>
     </div>
     <div class="skills-grid">
 
-      <div class="skill-card">
+      <div class="skill-card reveal">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4L2 12l6 8M16 4l6 8-6 8"/></svg>
         <h4>Programming</h4>
         <div class="badge-row">
@@ -359,7 +450,7 @@
         </div>
       </div>
 
-      <div class="skill-card">
+      <div class="skill-card reveal">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
         <h4>Databases</h4>
         <div class="badge-row">
@@ -367,7 +458,7 @@
         </div>
       </div>
 
-      <div class="skill-card">
+      <div class="skill-card reveal">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 7.5l3 8M16 7.5l-3 8M8.5 6h7"/></svg>
         <h4>Machine Learning</h4>
         <div class="badge-row">
@@ -375,7 +466,7 @@
         </div>
       </div>
 
-      <div class="skill-card">
+      <div class="skill-card reveal">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10M11 20V4M18 20v-7"/></svg>
         <h4>Data Visualization</h4>
         <div class="badge-row">
@@ -383,7 +474,7 @@
         </div>
       </div>
 
-      <div class="skill-card">
+      <div class="skill-card reveal">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="6.5"/><path d="M19 19l-4.3-4.3"/></svg>
         <h4>Analytics</h4>
         <div class="badge-row">
@@ -391,7 +482,7 @@
         </div>
       </div>
 
-      <div class="skill-card">
+      <div class="skill-card reveal">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3l7 7-9 9-7-7 9-9zM4 20l3-1 1-3"/></svg>
         <h4>Tools</h4>
         <div class="badge-row">
@@ -406,11 +497,11 @@
 <!-- EXPERIENCE -->
 <section id="experience">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">Experience</div>
       <h2>What I've shipped in production.</h2>
     </div>
-    <div class="exp-card">
+    <div class="exp-card reveal">
       <div class="exp-top">
         <div>
           <div class="exp-role">Associate Data Scientist</div>
@@ -434,13 +525,13 @@
 <!-- PROJECTS -->
 <section id="projects">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">Featured Projects</div>
       <h2>Four projects, one thread: raw data → segments → decisions.</h2>
     </div>
     <div class="project-grid">
 
-      <div class="project-card">
+      <div class="project-card reveal">
         <div class="project-shot">Suggested screenshot: Unified pipeline architecture diagram or segment dashboard</div>
         <div class="project-body">
           <div class="project-tag">Flagship Project</div>
@@ -461,7 +552,7 @@
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project-card reveal">
         <div class="project-shot">Suggested screenshot: forecast line chart vs actuals</div>
         <div class="project-body">
           <div class="project-tag">Forecasting</div>
@@ -482,7 +573,7 @@
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project-card reveal">
         <div class="project-shot">Suggested screenshot: cluster scatter plot with labeled segments</div>
         <div class="project-body">
           <div class="project-tag">Clustering</div>
@@ -503,7 +594,7 @@
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project-card reveal">
         <div class="project-shot">Suggested screenshot: dashboard mockup or query results table</div>
         <div class="project-body">
           <div class="project-tag">SQL / Analytics</div>
@@ -531,39 +622,39 @@
 <!-- CASE STUDY -->
 <section id="case-study" class="case-study">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">Case Study</div>
       <h2>Unified: turning raw HCP data into a segmentation strategy</h2>
     </div>
-    <p class="cs-problem">Pharma commercial teams were engaging HCPs uniformly, with no reliable way to tell a high-value prescriber from a low-engagement one. Unified was built to close that gap — end to end, from raw data to a segmentation and forecasting system the business could act on.</p>
+    <p class="cs-problem reveal">Pharma commercial teams were engaging HCPs uniformly, with no reliable way to tell a high-value prescriber from a low-engagement one. Unified was built to close that gap — end to end, from raw data to a segmentation and forecasting system the business could act on.</p>
 
     <div class="cs-steps">
-      <div class="cs-step">
+      <div class="cs-step reveal">
         <div class="num">01 · Data Sources</div>
         <h4>Sourcing and generating the dataset</h4>
         <p>Researched real-world HCP engagement data structures and generated a representative dataset covering prescribing behavior, specialty, region, and interaction history.</p>
       </div>
-      <div class="cs-step">
+      <div class="cs-step reveal">
         <div class="num">02 · Data Engineering</div>
         <h4>Cleaning and structuring</h4>
         <p>Resolved missing values, duplicate records, and inconsistent categorical fields; built SQL pipelines to join and structure the data into an analysis-ready format.</p>
       </div>
-      <div class="cs-step">
+      <div class="cs-step reveal">
         <div class="num">03 · Feature Engineering</div>
         <h4>Building the feature set</h4>
         <p>Derived behavioral features — prescribing frequency, engagement recency, channel mix, specialty-adjusted volume — used as inputs to segmentation.</p>
       </div>
-      <div class="cs-step">
+      <div class="cs-step reveal">
         <div class="num">04 · Segmentation Methodology</div>
         <h4>Clustering into segments</h4>
         <p>Standardized features and applied K-Means clustering, selecting cluster count via elbow method and silhouette score, then validated with hierarchical clustering.</p>
       </div>
-      <div class="cs-step">
+      <div class="cs-step reveal">
         <div class="num">05 · Evaluation</div>
         <h4>Evaluation metrics</h4>
         <p>Assessed cluster quality with silhouette score and within-cluster variance, and validated forecasting outputs with MAPE / RMSE against holdout periods.</p>
       </div>
-      <div class="cs-step">
+      <div class="cs-step reveal">
         <div class="num">06 · AI Analytics Layer</div>
         <h4>Forecasting and insights</h4>
         <p>Layered forecasting models on top of segments to project engagement trends per group, and summarized patterns into plain-language insights.</p>
@@ -571,7 +662,7 @@
     </div>
 
     <div class="cs-outcomes">
-      <div>
+      <div class="reveal">
         <h4>Insights Generated</h4>
         <ul>
           <li>A small share of HCPs drove a disproportionate share of engagement value — a clear "protect and grow" segment.</li>
@@ -579,7 +670,7 @@
           <li>A low-engagement segment was consuming outreach resources with minimal return.</li>
         </ul>
       </div>
-      <div>
+      <div class="reveal">
         <h4>Recommended Business Actions</h4>
         <ul>
           <li>Prioritize field and digital engagement budget toward the high-value and growth-potential segments.</li>
@@ -594,32 +685,32 @@
 <!-- CERTIFICATIONS -->
 <section id="certifications">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">Certifications</div>
       <h2>What I'm prioritizing over the next 3 months.</h2>
     </div>
     <div class="cert-list">
-      <div class="cert-row">
+      <div class="cert-row reveal">
         <div class="rank">01</div>
         <div><h4>Google Data Analytics Professional Certificate</h4><p>Coursera · strengthens analytics storytelling and stakeholder communication — financial aid available.</p></div>
         <div class="price">Free w/ aid</div>
       </div>
-      <div class="cert-row">
+      <div class="cert-row reveal">
         <div class="rank">02</div>
         <div><h4>SQL for Data Science</h4><p>Coursera (UC Davis) · deepens window functions and query optimization, directly relevant to daily work.</p></div>
         <div class="price">Free to audit</div>
       </div>
-      <div class="cert-row">
+      <div class="cert-row reveal">
         <div class="rank">03</div>
         <div><h4>Kaggle Micro-Courses</h4><p>Pandas, Intro/Intermediate Machine Learning, Feature Engineering, Time Series — short, hands-on, resume-worthy.</p></div>
         <div class="price">Free</div>
       </div>
-      <div class="cert-row">
+      <div class="cert-row reveal">
         <div class="rank">04</div>
         <div><h4>IBM Data Science Professional Certificate</h4><p>Coursera · broad, recognizable credential that reinforces the ML and Python fundamentals on this page.</p></div>
         <div class="price">Free w/ aid</div>
       </div>
-      <div class="cert-row">
+      <div class="cert-row reveal">
         <div class="rank">05</div>
         <div><h4>Microsoft Power BI Data Analyst</h4><p>Adds a recognized BI credential to back up the dashboarding work in the SQL Analytics project.</p></div>
         <div class="price">Low-cost exam</div>
@@ -631,9 +722,9 @@
 <!-- RESUME -->
 <section id="resume" class="resume-band">
   <div class="wrap">
-    <h2>Want the full picture?</h2>
-    <p>Download my resume for the complete breakdown of my experience, skills, and project impact.</p>
-    <a href="#" class="btn btn-primary">Download Resume (PDF)</a>
+    <h2 class="reveal">Want the full picture?</h2>
+    <p class="reveal">Download my resume for the complete breakdown of my experience, skills, and project impact.</p>
+    <a href="#" class="btn btn-primary reveal">Download Resume (PDF)</a>
   </div>
 </section>
 
@@ -641,25 +732,84 @@
 <section id="contact">
   <div class="wrap">
     <div class="contact-grid">
-      <div>
+      <div class="reveal">
         <div class="eyebrow">Contact</div>
         <h2>Let's talk about the role.</h2>
-        <p>I'm actively interviewing for Data Scientist, ML Engineer, and Analytics Engineer roles in Hyderabad, Banglore, Pune, and Bhubaneswar. If my segmentation and forecasting work is relevant to your team, I'd welcome a conversation.</p>
+        <p>I'm actively interviewing for Data Scientist, ML Engineer, and Analytics Engineer roles in Hyderabad, Bengaluru, Pune, and Bhubaneswar. If my segmentation and forecasting work is relevant to your team, I'd welcome a conversation.</p>
       </div>
-      <ul class="contact-list">
+      <ul class="contact-list reveal">
         <li><span>Email</span><a href="mailto:anushrayadas@gmail.com">anushrayadas@gmail.com</a></li>
-        <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/anushraya-das-4578a92a6">linkedin.com/in/anushraya-das</a></li>
-        <li><span>GitHub</span><a href="https://github.com/anushrayadas">github.com/anushrayadas</a></li>
-        <li><span>Location</span>      <span>Hyderabad, Banglore, Pune, Bhubaneswar(open to relocation) · based in Bhubaneswar</span></li>
+        <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/anushraya-das-4578a92a6" target="_blank" rel="noopener">linkedin.com/in/anushraya-das</a></li>
+        <li><span>GitHub</span><a href="https://github.com/anushrayadas" target="_blank" rel="noopener">github.com/anushrayadas</a></li>
+        <li><span>Location</span><span>Hyderabad, Bengaluru, Pune, Bhubaneswar (open to relocation) · based in Gurugram</span></li>
       </ul>
     </div>
   </div>
 </section>
 
-<footer>© <span id="year"></span> Anshraya Das. Built with data, shipped like a product.</footer>
+<footer>© <span id="year"></span> Anushraya Das. Built with data, shipped like a product.</footer>
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Scroll progress bar
+  const progressBar = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+  });
+
+  // Mobile menu toggle
+  const navToggle = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  navToggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    navToggle.textContent = mobileMenu.classList.contains('open') ? '✕ Close' : '☰ Menu';
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      navToggle.textContent = '☰ Menu';
+    });
+  });
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // Animated stat counters
+  const statEls = document.querySelectorAll('.stat .num');
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.getAttribute('data-count'), 10);
+        let current = 0;
+        const step = Math.max(1, Math.ceil(target / 30));
+        const tick = () => {
+          current += step;
+          if (current >= target) {
+            el.textContent = target;
+          } else {
+            el.textContent = current;
+            requestAnimationFrame(tick);
+          }
+        };
+        tick();
+        statObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  statEls.forEach(el => statObserver.observe(el));
 </script>
 </body>
 </html>
